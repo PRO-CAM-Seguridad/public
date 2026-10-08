@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto — PRO CAM Seguridad</title>
+  <meta name="description" content="Contacto directo y asesoramiento en seguridad electrónica. PRO CAM Seguridad.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .contacto-hero {
+      background: linear-gradient(135deg, #000000 0%, #31302F 100%);
+      color: #ffffff;
+      padding: 3rem 0 2rem;
+      border-bottom: 3px solid #b40e02;
+      text-align: center;
+    }
+    .contacto-hero h1 { font-family: Arial, sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
+    .contacto-hero p { color: #cccccc; max-width: 650px; margin: 0 auto; font-size: 0.98rem; }
+
+    /* Tabla invisible para dar orden visual al formulario */
+    .contact-table-layout {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 1rem;
+    }
+    .contact-table-layout td {
+      padding: 0 0.5rem;
+      vertical-align: top;
+    }
+    
+    .contact-form-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid #E2E8F0;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* Sección Informativa Post Formulario */
+    .post-form-info-bar {
+      margin-top: 3rem;
+      background: #000000;
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      border-top: 4px solid #b40e02;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .post-info-box { display: flex; align-items: center; gap: 1rem; }
+    .post-info-icon {
+      width: 44px; height: 44px; background: rgba(180,14,2,0.2); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; color: #b40e02; font-size: 1.15rem; flex-shrink: 0;
+    }
+
+    @media(max-width: 768px) {
+      .contact-table-layout, .contact-table-layout tbody, .contact-table-layout tr, .contact-table-layout td {
+        display: block;
+        width: 100%;
+      }
+      .contact-table-layout td { padding: 0 0 0.75rem 0; }
+      .contact-form-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header (inyectado por app.js) -->
+
+<!-- ── HERO CONTACTO ──────────────────────────────────── -->
+<div class="contacto-hero">
+  <div class="container">
+    <h1>Contacto & Asesoramiento Directo</h1>
+    <p>Completá el formulario para coordinar tu asesoría técnica con PRO CAM Seguridad.</p>
+  </div>
+</div>
+
+<section style="background:#F8F9FA;padding:3.5rem 0;">
+  <div class="container">
+
+    <!-- FORMULARIO ESTRUCTURADO EN TABLA INVISIBLE -->
+    <div class="contact-form-card">
+      <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:0.5rem;color:#000;text-align:center;">Formulario de Consulta Técnica</h2>
+      <p style="font-size:0.88rem;color:#666;margin-bottom:2rem;text-align:center;">Ingresá tus datos para canalizar tu solicitud.</p>
+
+      <div id="contactSuccessMsg" style="display:none;background:#E8F5E9;border:1px solid #C8E6C9;color:#2E7D32;padding:2rem;border-radius:14px;text-align:center;">
+        <i class="fas fa-check-circle" style="font-size:3rem;margin-bottom:0.75rem;"></i>
+        <h3 style="font-size:1.25rem;margin-bottom:0.4rem;">¡Consulta Registrada!</h3>
+        <p style="font-size:0.92rem;color:#333;">Un asesor técnico comercial de PRO CAM te contactará a la brevedad.</p>
+      </div>
+
+      <form id="interactiveContactForm">
+
+        <!-- TABLA ESTRUCTURAL INVISIBLE -->
+        <table class="contact-table-layout">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <label class="form-label" style="font-weight:800;color:#000;display:block;margin-bottom:0.35rem;">Segmento de cotización *</label>
+                <select id="selectedSegment" class="form-control" required style="font-weight:700;">
+                  <option value="Hogar">PRO CAM Home — Casas, Quintas y Departamentos (Residencial)</option>
+                  <option value="Empresas" selected>PRO CAM Business — Comercios, Depósitos y Oficinas (Pymes & Comercial)</option>
+                  <option value="Smart">PRO CAM Smart — Corporativo, Analítica de Video, LPR e Industriales</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:50%;">
+                <label class="form-label" style="font-weight:700;">Nombre y Apellido *</label>
+                <input type="text" id="cNombre" class="form-control" required>
+              </td>
+              <td style="width:50%;">
+                <label class="form-label" style="font-weight:700;">Teléfono / Celular *</label>
+                <input type="tel" id="cTelefono" class="form-control" required>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="width:50%;">
+                <label class="form-label" style="font-weight:700;">Email de Contacto *</label>
+                <input type="email" id="cEmail" class="form-control" required>
+              </td>
+              <td style="width:50%;">
+                <label class="form-label" style="font-weight:700;">Localidad / Zona</label>
+                <input type="text" id="cLocalidad" class="form-control">
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">
+                <label class="form-label" style="font-weight:700;">Tipo de Requerimiento *</label>
+                <select id="cAsunto" class="form-control" required>
+                  <option value="Cotización Técnica">Solicitud de Cotización a Medida</option>
+                  <option value="Relevamiento en Obra">Relevamiento / Inspección Técnica in Situ</option>
+                  <option value="Instalación Nuevas Cámaras">Instalación de Sistema de Videovigilancia</option>
+                  <option value="Alarma y Monitoreo">Sistema de Alarma / Cercos Eléctricos</option>
+                  <option value="Mantenimiento">Mantenimiento de Sistema Existente</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">
+                <label class="form-label" style="font-weight:700;">Detalle del Proyecto o Consulta *</label>
+                <textarea id="cMensaje" class="form-control" rows="4" required></textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="display:flex;gap:1rem;margin-top:1.5rem;justify-content:center;">
+          <button type="submit" id="cSubmitBtn" class="btn btn-yellow btn-full btn-lg" style="font-weight:800;max-width:320px;">
+            <i class="fas fa-paper-plane"></i> ENVIAR CONSULTA
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- INFORMACIÓN REUBICADA POST FORMULARIO -->
+    <div class="post-form-info-bar">
+      <div class="post-info-box">
+        <div class="post-info-icon"><i class="fas fa-phone"></i></div>
+        <div>
+          <div style="font-size:0.75rem;color:#aaa;">Atención Telefónica / WhatsApp</div>
+          <div style="font-size:0.95rem;font-weight:700;">+54 11 2394 0806</div>
+        </div>
+      </div>
+
+      <div class="post-info-box">
+        <div class="post-info-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+          <div style="font-size:0.75rem;color:#aaa;">Correo Comercial Oficial</div>
+          <div style="font-size:0.95rem;font-weight:700;">ventas@procamseguridad.com.ar</div>
+        </div>
+      </div>
+
+      <div class="post-info-box">
+        <div class="post-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+          <div style="font-size:0.75rem;color:#aaa;">Zona de Cobertura</div>
+          <div style="font-size:0.88rem;font-weight:600;">GBA y alrededores</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer (inyectado por JS) -->
+
+<script type="module">
+  import { buildHeader, buildFooter, Toast, api, CampaignTracker } from '/js/app.js';
+  buildHeader('contacto');
+  buildFooter();
+
+  // Envío del Formulario Conectado a MongoDB y Embudo Comercial
+  document.getElementById('interactiveContactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('cSubmitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando consulta...';
+
+    const nombre = document.getElementById('cNombre').value.trim();
+    const telefono = document.getElementById('cTelefono').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const localidad = document.getElementById('cLocalidad').value.trim();
+    const asunto = document.getElementById('cAsunto').value;
+    const mensaje = document.getElementById('cMensaje').value.trim();
+
+    try {
+      await api.post('/api/prospects/contact', {
+        nombre,
+        telefono,
+        email,
+        localidad,
+        asunto,
+        mensaje,
+        campaignRef: (typeof CampaignTracker !== 'undefined' ? CampaignTracker.getCampaign() : 'QR-WEB'),
+        sessionId: (typeof CampaignTracker !== 'undefined' ? CampaignTracker.getSessionId() : 'anonymous')
+      });
+
+      document.getElementById('interactiveContactForm').style.display = 'none';
+      document.getElementById('contactSuccessMsg').style.display = 'block';
+      Toast.show('¡Consulta enviada! Un asesor comercial se comunicará a la brevedad.', 'success');
+    } catch (err) {
+      Toast.show(err.message || 'Error al enviar la consulta. Intente nuevamente.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> ENVIAR CONSULTA';
+    }
+  });
+</script>
+
+</body>
+</html>

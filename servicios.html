@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios Profesionales - PROCAM Seguridad</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .service-detail-card {
+      background:var(--white); border-radius:16px; padding:2.5rem;
+      box-shadow:var(--shadow); border-top:4px solid var(--red);
+      transition:var(--transition);
+    }
+    .service-detail-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-3px); }
+    .service-big-icon {
+      width:64px;height:64px;background:rgba(180,14,2,.1);border-radius:14px;
+      display:flex;align-items:center;justify-content:center;font-size:1.8rem;
+      color:var(--red);margin-bottom:1.25rem;
+    }
+    .service-detail-card ul { margin-top:.75rem; display:flex; flex-direction:column; gap:.4rem; }
+    .service-detail-card ul li {
+      display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--gray-text);
+    }
+    .service-detail-card ul li i { color:var(--red);font-size:.85rem; }
+    .plans-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    .plan-card {
+      background:var(--white);border-radius:16px;padding:2rem;box-shadow:var(--shadow);
+      border:2px solid var(--gray-bdr);text-align:center;transition:var(--transition);position:relative;
+      display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .plan-card:hover { border-color:var(--red); box-shadow:var(--shadow-lg); }
+    .plan-card.featured { border-color:var(--red);background:rgba(180,14,2,.03); }
+    .plan-badge {
+      position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+      background:var(--red);color:var(--white);font-size:.72rem;font-weight:800;
+      padding:.25rem .75rem;border-radius:20px;
+    }
+    .plan-price { font-size:2.2rem;font-weight:900;color:var(--black);margin:1rem 0; }
+    .plan-price span { font-size:1rem;font-weight:600;color:var(--gray-text); }
+    .plan-features { display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;text-align:left;flex-grow:1; }
+    .plan-features li { display:flex;align-items:center;gap:.5rem;font-size:.86rem;color:var(--gray-text); }
+    .plan-features li i { color:var(--red);font-size:.85rem;flex-shrink:0; }
+    .faq-item { border-bottom:1px solid var(--gray-bdr);padding:1.25rem 0; }
+    .faq-q {
+      display:flex;align-items:center;justify-content:space-between;
+      font-weight:700;cursor:pointer;gap:1rem;
+    }
+    .faq-q i { color:var(--red);transition:var(--transition); }
+    .faq-a { font-size:.9rem;color:var(--gray-text);padding-top:.75rem;display:none; }
+    .faq-item.open .faq-a { display:block; }
+    .faq-item.open .faq-q i { transform:rotate(45deg); }
+    @media(max-width:768px){ .plans-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+<!-- Header injected by JS -->
+
+<!-- Hero -->
+<div style="background:linear-gradient(135deg,var(--black),var(--dark2));color:var(--white);padding:4rem 0">
+  <div class="container">
+    <div style="text-align:center;max-width:640px;margin:0 auto">
+      <h1 style="color:var(--white);margin-bottom:1rem">Servicios <span style="color:var(--yellow)">Profesionales</span></h1>
+      <p style="color:#bbb;font-size:1.05rem">Nuestro equipo técnico certificado garantiza que tu sistema de seguridad funcione siempre al 100%.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Services detail -->
+<section id="instalacion">
+  <div class="container">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="section-underline"></div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:1rem">
+      <div class="service-detail-card">
+        <div class="service-big-icon"><i class="fas fa-tools"></i></div>
+        <h3>Instalación Profesional</h3>
+        <p style="margin:.5rem 0">Técnicos certificados realizan la instalación completa de tu sistema.</p>
+        <ul>
+          <li><i class="fas fa-check"></i>Cámaras IP y analógicas</li>
+          <li><i class="fas fa-check"></i>Alarmas y sensores</li>
+          <li><i class="fas fa-check"></i>Control de acceso biométrico</li>
+          <li><i class="fas fa-check"></i>Videoporteros</li>
+          <li><i class="fas fa-check"></i>Configuración remota</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card" id="mantenimiento">
+        <div class="service-big-icon"><i class="fas fa-cog"></i></div>
+        <h3>Mantenimiento Preventivo</h3>
+        <p style="margin:.5rem 0">Revisiones periódicas para asegurar el óptimo rendimiento de tu sistema.</p>
+        <ul>
+          <li><i class="fas fa-check"></i>Limpieza de lentes y sensores</li>
+          <li><i class="fas fa-check"></i>Actualización de firmware</li>
+          <li><i class="fas fa-check"></i>Verificación de conectividad</li>
+          <li><i class="fas fa-check"></i>Prueba de grabación</li>
+          <li><i class="fas fa-check"></i>Informe de estado</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card" id="asesoramiento">
+        <div class="service-big-icon"><i class="fas fa-clipboard-list"></i></div>
+        <h3>Asesoramiento Personalizado</h3>
+        <p style="margin:.5rem 0">Analizamos tu espacio y te recomendamos la solución ideal para tu presupuesto.</p>
+        <ul>
+          <li><i class="fas fa-check"></i>Visita técnica sin cargo</li>
+          <li><i class="fas fa-check"></i>Plano de cobertura</li>
+          <li><i class="fas fa-check"></i>Presupuesto detallado</li>
+          <li><i class="fas fa-check"></i>Comparativa de opciones</li>
+          <li><i class="fas fa-check"></i>Asesoramiento post-venta</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card">
+        <div class="service-big-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Soporte Técnico 24/7</h3>
+        <p style="margin:.5rem 0">Asistencia remota o presencial para resolver cualquier inconveniente.</p>
+        <ul>
+          <li><i class="fas fa-check"></i>Guardia técnica permanente</li>
+          <li><i class="fas fa-check"></i>Soporte remoto via TeamViewer</li>
+          <li><i class="fas fa-check"></i>Visita a domicilio</li>
+          <li><i class="fas fa-check"></i>SLA garantizado</li>
+          <li><i class="fas fa-check"></i>Seguimiento de tickets</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Planes -->
+<section style="background:var(--gray-bg)">
+  <div class="container">
+    <h2 class="section-title">Planes de Mantenimiento</h2>
+    <div class="section-underline"></div>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <i class="fas fa-home" style="font-size:2rem;color:var(--red)"></i>
+        <h3 style="margin-top:.75rem">PRO CAM Hogar</h3>
+        <div class="plan-price" style="font-size:1.4rem;">Cotización a Medida</div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i>Visita técnica y relevamiento inicial</li>
+          <li><i class="fas fa-check"></i>Soporte técnico y mantenimiento preventivo</li>
+          <li><i class="fas fa-check"></i>CCTV, Alarmas y Videoporteros</li>
+          <li><i class="fas fa-check"></i>Actualización de firmware y app móvil</li>
+        </ul>
+        <a href="/soluciones.html?seg=Hogar" class="btn btn-red btn-full" style="background:#b40e02;color:#ffffff;font-weight:800;border:none;box-shadow:0 4px 14px rgba(180,14,2,0.25);justify-content:center;">
+          <i class="fas fa-calculator" style="margin-right:6px"></i> Cotizar Solución
+        </a>
+      </div>
+
+      <div class="plan-card featured">
+        <span class="plan-badge">⭐ Más elegido</span>
+        <i class="fas fa-building" style="font-size:2rem;color:var(--red)"></i>
+        <h3 style="margin-top:.75rem">PRO CAM Empresas</h3>
+        <div class="plan-price" style="font-size:1.4rem;">Propuesta Personalizada</div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i>Mantenimiento programado para PyMEs</li>
+          <li><i class="fas fa-check"></i>Soporte técnico prioritario</li>
+          <li><i class="fas fa-check"></i>AcuSense, Alarmas 4G y Control de Acceso</li>
+          <li><i class="fas fa-check"></i>Informe técnico periódico</li>
+        </ul>
+        <a href="/soluciones.html?seg=Empresas" class="btn btn-red btn-full" style="background:#b40e02;color:#ffffff;font-weight:800;border:none;box-shadow:0 4px 14px rgba(180,14,2,0.25);justify-content:center;">
+          <i class="fas fa-calculator" style="margin-right:6px"></i> Cotizar Solución
+        </a>
+      </div>
+
+      <div class="plan-card">
+        <i class="fas fa-industry" style="font-size:2rem;color:var(--red)"></i>
+        <h3 style="margin-top:.75rem">PRO CAM Smart</h3>
+        <div class="plan-price" style="font-size:1.4rem;">Ingeniería & SLA</div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i>Relevamiento en obra e ingeniería de proyecto</li>
+          <li><i class="fas fa-check"></i>Soporte corporativo 24/7 con SLA dedicado</li>
+          <li><i class="fas fa-check"></i>Ecosistema HikCentral y Video Wall</li>
+          <li><i class="fas fa-check"></i>Reconocimiento vehicular LPR y analítica con IA</li>
+        </ul>
+        <a href="/contacto.html?asunto=Plan+Smart" class="btn btn-red btn-full" style="background:#b40e02;color:#ffffff;font-weight:800;border:none;box-shadow:0 4px 14px rgba(180,14,2,0.25);justify-content:center;">
+          <i class="fas fa-user-tie" style="margin-right:6px"></i> Solicitar un Asesor
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container" style="max-width:720px">
+    <h2 class="section-title">Preguntas Frecuentes</h2>
+    <div class="section-underline"></div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Cuánto tarda la instalación? <i class="fas fa-plus"></i></div>
+      <div class="faq-a">Depende del sistema. Un kit básico de 4 cámaras se instala en 3-4 horas. Sistemas más grandes pueden llevar 1-2 días. Coordinamos el horario que mejor te convenga.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Trabajan fuera de Buenos Aires? <i class="fas fa-plus"></i></div>
+      <div class="faq-a">Sí. Tenemos técnicos en GBA, La Plata, Rosario y Córdoba. Para otras localidades coordinamos visitas programadas o te asesoramos de forma remota para autoinstalación.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Qué garantía tienen los equipos? <i class="fas fa-plus"></i></div>
+      <div class="faq-a">Todos nuestros equipos tienen garantía oficial de fábrica: 12 meses para cámaras y DVR, 6 meses para accesorios. Gestionamos el reemplazo sin costo adicional.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Puedo ver las cámaras desde el celular? <i class="fas fa-plus"></i></div>
+      <div class="faq-a">Absolutamente. Todos nuestros sistemas son compatibles con apps móviles (Hik-Connect, DMSS, iVMS). Te configuramos el acceso remoto durante la instalación.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Emiten factura? <i class="fas fa-plus"></i></div>
+      <div class="faq-a">Sí, emitimos factura A y B. Somos responsables inscriptos ante AFIP. Todos nuestros servicios e instalaciones están facturados.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--black);padding:4rem 0">
+  <div class="container" style="text-align:center">
+    <h2 style="color:var(--white);margin-bottom:1rem">¿Necesitás un presupuesto?</h2>
+    <p style="color:#aaa;margin-bottom:2rem">Contactanos y en menos de 24hs te respondemos con una propuesta a medida.</p>
+    <a href="/contacto.html" class="btn btn-yellow btn-lg"><i class="fas fa-phone"></i> Solicitá presupuesto</a>
+  </div>
+</section>
+
+<!-- Footer injected by JS -->
+
+<script type="module">
+  import { buildHeader, buildFooter } from '/js/app.js';
+  buildHeader('servicios');
+  buildFooter();
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>

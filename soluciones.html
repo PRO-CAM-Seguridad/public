@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizá tu Proyecto de Soluciones - PRO CAM Seguridad</title>
+  <meta name="description" content="Cotizador online de soluciones de seguridad electrónica PRO CAM. Diseñá y presupuestá sistemas de CCTV, alarmas y accesos.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .cotizador-hero {
+      background: linear-gradient(135deg, var(--black), #222222);
+      color: var(--white);
+      padding: 3rem 0 2rem;
+      border-bottom: 3px solid var(--yellow);
+    }
+    .cotizador-hero h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
+    .cotizador-hero p { color: #ccc; max-width: 700px; font-size: 0.98rem; }
+    .cotizador-wrapper { padding: 2rem 0 5rem; }
+    
+    /* Contenedor de Filtros con Pop-up */
+    .filter-trigger-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      background: #F8F9FA;
+      padding: 0.85rem 1.25rem;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      flex-wrap: wrap;
+    }
+    .active-filters-chips {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filter-chip-tag {
+      background: #000000;
+      color: #ffffff;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+    .filter-chip-tag i { cursor: pointer; color: #b40e02; }
+
+    /* Modal / Pop-up de Filtros Avanzados */
+    .filter-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 4000;
+      display: flex; align-items: center; justify-content: center; padding: 1rem;
+      opacity: 0; pointer-events: none; transition: var(--transition);
+    }
+    .filter-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .filter-modal-box {
+      background: #ffffff; border-radius: 16px; width: 100%; max-width: 520px;
+      max-height: 85vh; overflow-y: auto; padding: 2rem; box-shadow: var(--shadow-lg);
+    }
+    .filter-group-title { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: #666; margin-bottom: 0.6rem; letter-spacing: 0.5px; }
+    .filter-options-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .filter-opt-btn {
+      background: #F1F5F9; border: 1px solid #CBD5E1; color: #333; padding: 0.45rem 0.9rem;
+      border-radius: 8px; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: var(--transition);
+    }
+    .filter-opt-btn:hover, .filter-opt-btn.active { background: #b40e02; color: #ffffff; border-color: #b40e02; }
+
+    /* Tarjetas de Solución con Imagen */
+    .solution-card-img {
+      width: 100%; height: 160px; object-fit: cover; border-top-left-radius: 14px; border-top-right-radius: 14px;
+      background: #000;
+    }
+
+    .floating-quote-bar {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: #1A1A1A; color: #fff; padding: 0.85rem 1.5rem; border-radius: 50px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35); border: 2px solid var(--yellow);
+      display: flex; align-items: center; gap: 1.5rem; z-index: 1000; transition: all 0.3s ease;
+    }
+    .floating-quote-bar.hidden { opacity: 0; pointer-events: none; transform: translate(-50%, 20px); }
+  </style>
+</head>
+<body>
+
+<!-- Header (inyectado por JS) -->
+
+<!-- Hero del Cotizador -->
+<div class="cotizador-hero">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:0.5rem;color:#888;font-size:0.83rem;margin-bottom:0.75rem;">
+      <a href="/index.html" style="color:#aaa;">Inicio</a>
+      <span>/</span>
+      <span style="color:var(--yellow);">Cotizador Online</span>
+    </div>
+    <h1>Cotizador Online de Soluciones a Medida</h1>
+    <p>
+      Definí tus criterios y filtros de tecnología para seleccionar y cotizar las soluciones ideales para tu proyecto.
+    </p>
+  </div>
+</div>
+
+<main class="cotizador-wrapper">
+  <div class="container">
+
+    <!-- BARRA Y BOTÓN DE ACCIÓN PARA FILTROS EN POP-UP -->
+    <div class="filter-trigger-bar">
+      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;flex:1;">
+        <button class="btn btn-dark btn-sm" onclick="openFilterModal()" style="background:#000;color:#fff;font-weight:800;display:flex;align-items:center;gap:0.5rem;">
+          <i class="fas fa-sliders-h text-yellow"></i> DEFINIR Y FILTRAR SOLUCIONES
+        </button>
+
+        <div class="active-filters-chips" id="activeFiltersContainer">
+          <!-- Chips activos inyectados por JS -->
+        </div>
+      </div>
+
+      <input type="search" class="search-input" id="searchSolutionInput" placeholder="" style="max-width:240px;margin-bottom:0;">
+    </div>
+
+    <!-- Contador de resultados y Selector de Paginación / Segmentación -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;">
+      <span style="font-size:0.88rem;color:var(--gray-text);" id="solutionsCount">Cargando soluciones técnicas...</span>
+      
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <div class="segment-pill-selector">
+          <button class="seg-pill active" data-seg="">Todos</button>
+          <button class="seg-pill" data-seg="Hogar">Hogar</button>
+          <button class="seg-pill" data-seg="Empresas">Empresas</button>
+          <button class="seg-pill" data-seg="Smart">Smart</button>
+        </div>
+
+        <button class="btn btn-dark btn-sm" onclick="QuoteModal.open()" style="display:flex;align-items:center;gap:0.4rem;">
+          <i class="fas fa-clipboard-list text-yellow"></i> Ver mi cotización
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid de Soluciones 3x3 para escritorio -->
+    <div id="solutionsGrid" class="products-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:1.5rem;">
+      <!-- Skeletons de carga inicial -->
+      <div style="height:380px;background:#f0f0f0;border-radius:14px;" class="skeleton"></div>
+      <div style="height:380px;background:#f0f0f0;border-radius:14px;" class="skeleton"></div>
+      <div style="height:380px;background:#f0f0f0;border-radius:14px;" class="skeleton"></div>
+    </div>
+
+    <!-- Paginador 3x3 (9 ítems por página) -->
+    <div id="paginationControls" style="display:flex;justify-content:center;align-items:center;gap:0.5rem;margin-top:2.5rem;">
+      <!-- Botones de página inyectados por JS -->
+    </div>
+
+    <!-- Banner Informativo Inferior -->
+    <div style="margin-top:3.5rem;background:#F9F9F9;border:1px solid #E5E5E5;border-radius:14px;padding:2rem;text-align:center;">
+      <i class="fas fa-user-check text-yellow" style="font-size:2rem;margin-bottom:0.75rem;display:inline-block;"></i>
+      <h3 style="font-size:1.15rem;margin-bottom:0.4rem;">¿Tenés un plano o requerimiento específico de ingeniería?</h3>
+      <p style="color:var(--gray-text);max-width:650px;margin:0 auto 1.25rem;font-size:0.9rem;">
+        Realizamos relevamientos en obra y asesoramiento técnico in situ para industrias, barrios cerrados y comercios.
+      </p>
+      <button class="btn btn-yellow" onclick="QuoteModal.open()">
+        <i class="fas fa-calculator"></i> Solicitar Asesoría y Cotización
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<!-- POP-UP / MODAL DE FILTROS AVANZADOS -->
+<div class="filter-modal-overlay" id="filterModalOverlay">
+  <div class="filter-modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;border-bottom:1px solid #eee;padding-bottom:0.75rem;">
+      <h3 style="font-size:1.2rem;font-weight:800;margin:0;"><i class="fas fa-filter text-yellow"></i> Filtros de Soluciones</h3>
+      <button onclick="closeFilterModal()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#888;">&times;</button>
+    </div>
+
+    <!-- 1. Segmentos -->
+    <div class="filter-group-title">Segmento de Propiedad</div>
+    <div class="filter-options-grid" id="segFilterGroup">
+      <button class="filter-opt-btn active" data-type="seg" data-val="">Todos los Segmentos</button>
+      <button class="filter-opt-btn" data-type="seg" data-val="Hogar">🏠 PRO CAM Home (Hogar)</button>
+      <button class="filter-opt-btn" data-type="seg" data-val="Empresas">🏢 PRO CAM Business (Comercios & Pymes)</button>
+      <button class="filter-opt-btn" data-type="seg" data-val="Smart">🧠 PRO CAM Smart (Corporativo & LPR)</button>
+    </div>
+
+    <!-- 2. Nivel de Solución -->
+    <div class="filter-group-title">Dimensiones / Nivel de Cobertura</div>
+    <div class="filter-options-grid" id="levelFilterGroup">
+      <button class="filter-opt-btn active" data-type="level" data-val="">Todos los Niveles</button>
+      <button class="filter-opt-btn" data-type="level" data-val="Esencial">Esencial (Inicial / Básico)</button>
+      <button class="filter-opt-btn" data-type="level" data-val="Avanzada">Avanzada (Perimetral / AcuSense)</button>
+      <button class="filter-opt-btn" data-type="level" data-val="Integral">Integral (Centro de Monitoreo / LPR)</button>
+    </div>
+
+    <!-- 3. Tipo de Tecnologías -->
+    <div class="filter-group-title">Tipo de Tecnología</div>
+    <div class="filter-options-grid" id="techFilterGroup">
+      <button class="filter-opt-btn active" data-type="tech" data-val="">Todas las Tecnologías</button>
+      <button class="filter-opt-btn" data-type="tech" data-val="CCTV">Videovigilancia & Cámaras CCTV</button>
+      <button class="filter-opt-btn" data-type="tech" data-val="Alarma">Alarmas & Sensores Monitoreados</button>
+      <button class="filter-opt-btn" data-type="tech" data-val="Acceso">Control de Acceso Biométrico</button>
+      <button class="filter-opt-btn" data-type="tech" data-val="Videoportero">Videoporteros IP & Intercom</button>
+    </div>
+
+    <div style="display:flex;gap:1rem;margin-top:2rem;border-top:1px solid #eee;padding-top:1.25rem;">
+      <button class="btn btn-outline btn-full" style="color:#000;border-color:#ccc;" onclick="resetAllFilters()">
+        <i class="fas fa-trash-alt"></i> Limpiar Filtros
+      </button>
+      <button class="btn btn-yellow btn-full" onclick="applyFiltersAndClose()" style="font-weight:800;">
+        APLICAR FILTROS
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Barra flotante de cotización -->
+<div class="floating-quote-bar hidden" id="floatingQuoteBar">
+  <div class="floating-quote-info">
+    <span>Proyecto actual: </span><strong id="floatingBarCount">0 soluciones</strong>
+  </div>
+  <button class="btn btn-yellow btn-sm" onclick="QuoteModal.open()" style="font-weight:800;">
+    REVISAR Y COTIZAR <i class="fas fa-arrow-right" style="margin-left:4px"></i>
+  </button>
+</div>
+
+<!-- Footer (inyectado por JS) -->
+
+<script type="module">
+  import { buildHeader, buildFooter, QuoteCart, QuoteModal, Toast, api } from '/js/app.js';
+  buildHeader('soluciones');
+  buildFooter();
+
+  let solutions = [];
+  let filterSegment = '';
+  let filterLevel = '';
+  let filterTech = '';
+  let searchQuery = '';
+  let currentPage = 1;
+  const ITEMS_PER_PAGE = 9; // Grid de 3x3 en escritorio
+
+  const modalOverlay = document.getElementById('filterModalOverlay');
+
+  window.openFilterModal = () => modalOverlay.classList.add('open');
+  window.closeFilterModal = () => modalOverlay.classList.remove('open');
+
+  // Pill selectors de segmento
+  document.querySelectorAll('.seg-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.seg-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      filterSegment = pill.dataset.seg;
+      currentPage = 1;
+      updateOptGroup('seg', filterSegment);
+      renderSolutions();
+      updateChipsUI();
+    });
+  });
+
+  // Inicializar clicks en opciones de filtros del modal
+  document.querySelectorAll('.filter-opt-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const type = btn.dataset.type;
+      const val = btn.dataset.val;
+      document.querySelectorAll(`.filter-opt-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (type === 'seg') {
+        filterSegment = val;
+        document.querySelectorAll('.seg-pill').forEach(p => p.classList.toggle('active', p.dataset.seg === filterSegment));
+      }
+      if (type === 'level') filterLevel = val;
+      if (type === 'tech') filterTech = val;
+    });
+  });
+
+  window.resetAllFilters = () => {
+    filterSegment = '';
+    filterLevel = '';
+    filterTech = '';
+    searchQuery = '';
+    currentPage = 1;
+    document.getElementById('searchSolutionInput').value = '';
+    document.querySelectorAll('.filter-opt-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.val === '');
+    });
+    document.querySelectorAll('.seg-pill').forEach(p => p.classList.toggle('active', p.dataset.seg === ''));
+    renderSolutions();
+    updateChipsUI();
+  };
+
+  window.applyFiltersAndClose = () => {
+    currentPage = 1;
+    renderSolutions();
+    updateChipsUI();
+    closeFilterModal();
+  };
+
+  function updateChipsUI() {
+    const container = document.getElementById('activeFiltersContainer');
+    const chips = [];
+    if (filterSegment) chips.push({ label: `Segmento: ${filterSegment}`, clear: () => { filterSegment = ''; updateOptGroup('seg', ''); syncPills(''); } });
+    if (filterLevel) chips.push({ label: `Nivel: ${filterLevel}`, clear: () => { filterLevel = ''; updateOptGroup('level', ''); } });
+    if (filterTech) chips.push({ label: `Tecnología: ${filterTech}`, clear: () => { filterTech = ''; updateOptGroup('tech', ''); } });
+
+    if (chips.length === 0) {
+      container.innerHTML = '<span style="font-size:0.8rem;color:#888;">Sin filtros activos</span>';
+      return;
+    }
+
+    container.innerHTML = chips.map((c, i) => `
+      <span class="filter-chip-tag">
+        ${c.label}
+        <i class="fas fa-times-circle" onclick="window.removeFilterChip(${i})"></i>
+      </span>
+    `).join('');
+
+    window._activeChips = chips;
+  }
+
+  function syncPills(segVal) {
+    document.querySelectorAll('.seg-pill').forEach(p => p.classList.toggle('active', p.dataset.seg === segVal));
+  }
+
+  window.removeFilterChip = (idx) => {
+    if (window._activeChips && window._activeChips[idx]) {
+      window._activeChips[idx].clear();
+      currentPage = 1;
+      renderSolutions();
+      updateChipsUI();
+    }
+  };
+
+  function updateOptGroup(type, val) {
+    document.querySelectorAll(`.filter-opt-btn[data-type="${type}"]`).forEach(b => {
+      b.classList.toggle('active', b.dataset.val === val);
+    });
+  }
+
+  // Cargar soluciones desde API o fallback
+  async function loadSolutions() {
+    try {
+      const res = await api.get('/api/products');
+      if (res.success && Array.isArray(res.products)) {
+        solutions = res.products;
+      }
+    } catch {
+      solutions = [
+        { _id: '1', nombre: 'PRO CAM CCTV Hogar - Esencial', segmento: 'Hogar', nivel: 'Esencial', unidad: 'Kit', descripcion: 'Kit básico de videovigilancia domiciliaria.' },
+        { _id: '2', nombre: 'PRO CAM CCTV Hogar - Avanzada', segmento: 'Hogar', nivel: 'Avanzada', unidad: 'Kit', descripcion: 'Cobertura integral con detección inteligente.' },
+        { _id: '3', nombre: 'PRO CAM Alarma Hogar - Esencial', segmento: 'Hogar', nivel: 'Esencial', unidad: 'Kit', descripcion: 'Sistema inalámbrico con aviso al móvil.' },
+        { _id: '4', nombre: 'PRO CAM CCTV Empresas - AcuSense Comercial', segmento: 'Empresas', nivel: 'Avanzada', unidad: 'Kit', descripcion: 'Videovigilancia corporativa AcuSense.' },
+        { _id: '5', nombre: 'PRO CAM Control de Acceso Biométrico', segmento: 'Empresas', nivel: 'Avanzada', unidad: 'Equipo', descripcion: 'Terminal facial y huella para pymes.' },
+        { _id: '6', nombre: 'PRO CAM SMART - Monitoreo HikCentral', segmento: 'Smart', nivel: 'Integral', unidad: 'Servicio', descripcion: 'Centro de monitoreo corporativo.' }
+      ];
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('seg')) {
+      filterSegment = params.get('seg');
+      updateOptGroup('seg', filterSegment);
+      syncPills(filterSegment);
+    }
+    renderSolutions();
+    updateChipsUI();
+  }
+
+  function renderSolutions() {
+    const grid = document.getElementById('solutionsGrid');
+    const countLabel = document.getElementById('solutionsCount');
+    const paginationEl = document.getElementById('paginationControls');
+
+    let filtered = solutions.filter(s => {
+      const matchSeg = !filterSegment || s.segmento === filterSegment;
+      const matchLvl = !filterLevel || s.nivel === filterLevel;
+      const matchTech = !filterTech || (s.nombre + ' ' + (s.descripcion||'')).toLowerCase().includes(filterTech.toLowerCase());
+      const matchSearch = !searchQuery || (s.nombre + ' ' + (s.descripcion||'')).toLowerCase().includes(searchQuery.toLowerCase());
+      return matchSeg && matchLvl && matchTech && matchSearch;
+    });
+
+    countLabel.textContent = `Mostrando ${filtered.length} solución(es) en total`;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:3rem;background:#F9F9F9;border-radius:14px;">
+          <i class="fas fa-search" style="font-size:2.5rem;color:#ccc;margin-bottom:1rem;display:block;"></i>
+          <h3>No se encontraron soluciones con los filtros seleccionados.</h3>
+          <button class="btn btn-yellow btn-sm" style="margin-top:1rem;" onclick="resetAllFilters()">Limpiar Filtros</button>
+        </div>`;
+      paginationEl.innerHTML = '';
+      return;
+    }
+
+    // Paginación 3x3
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = 1;
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const paginatedItems = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    grid.innerHTML = paginatedItems.map(s => {
+      const imgSrc = '/images/hero-tecnicos.jpg';
+      return `
+      <div class="product-card" style="border-radius:14px;overflow:hidden;background:#fff;border:1px solid #E2E8F0;display:flex;flex-direction:column;justify-content:space-between;">
+        <img src="${imgSrc}" alt="${s.nombre}" class="solution-card-img">
+        <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column;justify-space-between;">
+          <div>
+            <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;flex-wrap:wrap;">
+              <span class="quote-item-badge ${s.segmento?.toLowerCase()}">${s.segmento}</span>
+              <span class="quote-item-badge ${s.nivel?.toLowerCase()}">${s.nivel}</span>
+            </div>
+            <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:0.4rem;color:#000;">${s.nombre}</h3>
+            <p style="font-size:0.83rem;color:#666;margin-bottom:1rem;line-height:1.4;">${s.descripcion}</p>
+          </div>
+
+          <button class="btn btn-yellow btn-full btn-sm" onclick='addToQuote(${JSON.stringify(s).replace(/'/g, "&apos;")})' style="font-weight:800;">
+            <i class="fas fa-plus-circle"></i> Agregar a Cotización
+          </button>
+        </div>
+      </div>
+      `;
+    }).join('');
+
+    // Renderizar botones de paginación
+    if (totalPages > 1) {
+      let pageBtns = '';
+      for (let i = 1; i <= totalPages; i++) {
+        pageBtns += `
+          <button class="btn btn-sm ${i === currentPage ? 'btn-yellow' : 'btn-outline'}" 
+                  style="${i !== currentPage ? 'color:#000;border-color:#ccc;' : ''}font-weight:800;min-width:36px;"
+                  onclick="window.goToPage(${i})">${i}</button>
+        `;
+      }
+      paginationEl.innerHTML = pageBtns;
+    } else {
+      paginationEl.innerHTML = '';
+    }
+  }
+
+  window.goToPage = (page) => {
+    currentPage = page;
+    renderSolutions();
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  };
+
+  window.addToQuote = (sol) => {
+    QuoteCart.add(sol);
+    updateFloatingBar();
+  };
+
+  function updateFloatingBar() {
+    const bar = document.getElementById('floatingQuoteBar');
+    const cnt = document.getElementById('floatingBarCount');
+    const n = QuoteCart.count();
+    cnt.textContent = `${n} solución(es)`;
+    bar.classList.toggle('hidden', n === 0);
+  }
+
+  document.getElementById('searchSolutionInput')?.addEventListener('input', (e) => {
+    searchQuery = e.target.value.trim();
+    currentPage = 1;
+    renderSolutions();
+  });
+
+  loadSolutions();
+  updateFloatingBar();
+</script>
+
+</body>
+</html>
+

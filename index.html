@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PRO CAM Seguridad — Protegemos lo que más te importa. Cotizador online de videovigilancia CCTV, alarmas monitoreadas, cercos eléctricos y control de accesos.">
+  <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon64x64.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .hero-tagline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 184, 0, 0.15);
+      border: 1px solid rgba(245, 184, 0, 0.4);
+      color: var(--yellow);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+    .segment-card-featured {
+      background: #ffffff;
+      border: 2px solid var(--gray-bdr);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .segment-card-featured:hover {
+      border-color: var(--yellow);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .segment-card-icon-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: rgba(245, 184, 0, 0.15);
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .segment-card-badge {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      background: #F5F5F5;
+      color: #666;
+    }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- Header (inyectado por app.js) -->
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section class="hero" style="background: linear-gradient(135deg, #000000 0%, #31302F 100%);">
+  <div class="container">
+    <div class="hero-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <div class="hero-tagline-badge" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); color: #ffffff;">
+        <i class="fas fa-shield-alt"></i> Tu seguridad, nuestra prioridad
+      </div>
+      <h1 style="font-size: clamp(2.2rem, 5vw, 3.2rem);">Protegé lo que más te importa con<br><span style="color: var(--red);">tecnología de punta.</span></h1>
+      <p style="font-size: 1.1rem; max-width: 680px; margin: 0 auto 2rem;">
+        Diseñamos, instalamos e integramos soluciones de seguridad electrónica para hogares, comercios e industrias.
+        Armá tu proyecto a medida en nuestro cotizador online.
+      </p>
+
+      <div class="hero-badges" style="justify-content: center;">
+        <div class="hero-badge"><i class="fas fa-certificate"></i> Equipos Homologados</div>
+        <div class="hero-badge"><i class="fas fa-tools"></i> Instalación Profesional</div>
+        <div class="hero-badge"><i class="fas fa-headset"></i> Soporte Técnico Local</div>
+      </div>
+
+      <div class="hero-cta" style="justify-content: center;">
+        <a href="/soluciones.html" class="btn btn-yellow btn-lg">
+          <i class="fas fa-calculator" style="margin-right:6px"></i> COTIZÁ TU PROYECTO
+        </a>
+        <a href="/servicios.html" class="btn btn-outline">Ver Servicios</a>
+      </div>
+
+      <div class="hero-trust" style="justify-content: center;">
+        <div class="hero-trust-item"><i class="fas fa-check-double"></i> Presupuesto Sin Compromiso</div>
+        <div class="hero-trust-item"><i class="fas fa-map-marker-alt"></i> Cobertura Gran Bs. As. & CABA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NIVELES DE SOLUCIÓN COMERCIAL ─────────────────── -->
+<section style="background:#F8F9FA;padding:4.5rem 0;border-top:1px solid #DEDDDD;border-bottom:1px solid #DEDDDD;">
+  <div class="container">
+    <h2 class="section-title">Soluciones a medida</h2>
+    <div class="section-underline"></div>
+    <p class="section-subtitle">Elegí tu segmento y armá tu cotización técnica online en 3 simples pasos</p>
+
+    <!-- Carrusel responsive de tarjetas con flechas laterales de navegación -->
+    <div class="segment-slider-wrapper">
+      <button type="button" class="segment-arrow-btn segment-arrow-prev" onclick="scrollSegmentSlider(-1)" aria-label="Solución anterior" title="Ver solución anterior">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div id="segmentSlider" style="display:flex;gap:1.5rem;overflow-x:auto;padding-bottom:1.5rem;padding-top:0.5rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;width:100%;scroll-behavior:smooth;">
+        
+        <!-- HOGAR -->
+        <div class="segment-card-featured reveal" style="flex:0 0 320px;max-width:360px;scroll-snap-align:start;background:#FFFFFF;border:1.5px solid #DEDDDD;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.04);">
+          <span class="segment-card-badge" style="background:#F1F3F5;color:#1E293B;border:1px solid #DEDDDD;font-weight:700;">Residencial</span>
+          <div>
+            <div class="segment-card-icon-wrap" style="background:rgba(180,14,2,0.08);color:var(--red);"><i class="fas fa-home"></i></div>
+            <h3 style="font-size:1.35rem;font-weight:800;margin-bottom:0.5rem;color:#000000;">PRO CAM Home</h3>
+            <p style="color:var(--gray-text);font-size:0.9rem;margin-bottom:1.25rem;">
+              Protección total para casas, quintas y departamentos. Soluciones fáciles de entender y paquetizadas a tu medida.
+            </p>
+            <ul style="list-style:none;font-size:0.85rem;color:#444;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;">
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Kits de Cámaras CCTV con visión nocturna y app</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Alarmas inalámbricas con aviso al celular</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Videoporteros IP con pantalla táctil y apertura remota</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Cercos eléctricos perimetrales homologados</li>
+            </ul>
+          </div>
+          <a href="/soluciones.html?seg=Hogar" class="btn btn-dark btn-full">
+            <i class="fas fa-calculator" style="margin-right:6px"></i> Cotizar para mi Hogar
+          </a>
+        </div>
+
+        <!-- EMPRESAS (PRO CAM Business Destacado Identidad de Marca) -->
+        <div class="segment-card-featured reveal" style="flex:0 0 340px;max-width:380px;scroll-snap-align:start;border:2px solid var(--red);background:#FFFFFF;border-radius:16px;box-shadow:0 10px 30px rgba(180,14,2,0.12);">
+          <span class="segment-card-badge" style="background:var(--red);color:#FFFFFF;font-weight:800;border:none;">Comercial & Pymes • Destacado</span>
+          <div>
+            <div class="segment-card-icon-wrap" style="background:var(--red);color:#FFFFFF;box-shadow:0 4px 12px rgba(180,14,2,0.3);"><i class="fas fa-building"></i></div>
+            <h3 style="font-size:1.45rem;font-weight:900;margin-bottom:0.5rem;color:#000000;">PRO CAM Business</h3>
+            <p style="color:#222222;font-size:0.92rem;margin-bottom:1.25rem;font-weight:600;">
+              El verdadero diferencial para <span style="background:rgba(180,14,2,0.08);color:var(--red);padding:2px 8px;border-radius:4px;font-weight:800;">Comercial y Pymes</span> que requieren seguridad activa y control de gestión.
+            </p>
+            <ul style="list-style:none;font-size:0.85rem;color:#333;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;">
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Cámaras AcuSense con detección humana y vehículos</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Alarmas comerciales 4G con sensores antienmascaramiento</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Control de acceso biométrico (rostro, huella, molinetes)</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Monitoreo unificado de múltiples sucursales</li>
+            </ul>
+          </div>
+          <a href="/soluciones.html?seg=Empresas" class="btn btn-full" style="background:var(--red);color:#ffffff;font-weight:800;box-shadow:0 4px 15px rgba(180,14,2,0.35);">
+            <i class="fas fa-calculator" style="margin-right:6px"></i> Cotizar para mi Negocio
+          </a>
+        </div>
+
+        <!-- SMART -->
+        <div class="segment-card-featured reveal" style="flex:0 0 320px;max-width:360px;scroll-snap-align:start;background:#FFFFFF;border:1.5px solid #DEDDDD;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.04);">
+          <span class="segment-card-badge" style="background:#F1F3F5;color:#1E293B;border:1px solid #DEDDDD;font-weight:700;">Corporativo & Analítica</span>
+          <div>
+            <div class="segment-card-icon-wrap" style="background:rgba(180,14,2,0.08);color:var(--red);"><i class="fas fa-brain"></i></div>
+            <h3 style="font-size:1.35rem;font-weight:800;margin-bottom:0.5rem;color:#000000;">PRO CAM Smart</h3>
+            <p style="color:var(--gray-text);font-size:0.9rem;margin-bottom:1.25rem;">
+              Ecosistema de alto desempeño HikCentral, analítica de video avanzada y reconocimiento vehicular para industrias.
+            </p>
+            <ul style="list-style:none;font-size:0.85rem;color:#444;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;">
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Centro de Monitoreo Centralizado & Video Wall</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Reconocimiento de Patentes LPR / ANPR y barreras</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Búsqueda forense inteligente por atributos físicos</li>
+              <li><i class="fas fa-check" style="color:var(--red);margin-right:6px"></i> Prevención de riesgos con cámaras térmicas y EPP</li>
+            </ul>
+          </div>
+          <a href="/soluciones.html?seg=Smart" class="btn btn-dark btn-full">
+            <i class="fas fa-calculator" style="margin-right:6px"></i> Cotizar Corporativo
+          </a>
+        </div>
+
+      </div>
+
+      <button type="button" class="segment-arrow-btn segment-arrow-next" onclick="scrollSegmentSlider(1)" aria-label="Solución siguiente" title="Ver solución siguiente">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICIOS PROFESIONALES ────────────────────────── -->
+<section style="background:#F8F9FA;padding:3.5rem 0;border-top:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0;" class="reveal">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2rem;">
+      <h2 style="font-size:clamp(1.5rem,4vw,2.2rem);color:#000000;">Servicios Integrales</h2>
+      <div style="width:50px;height:3px;background:var(--red);margin:0.4rem auto 0.8rem;"></div>
+      <p style="color:#4A4A4A;font-size:0.95rem;max-width:550px;margin:0 auto;">Instalación técnica, mantenimiento preventivo y configuración profesional.</p>
+    </div>
+
+    <!-- Grid de tarjetas de servicio concisas (Solo icono y título) -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;">
+      <div style="background:#FFFFFF;border:1.5px solid #DEDDDD;border-radius:14px;padding:1.75rem 1rem;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.03);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="width:52px;height:52px;background:var(--red);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin:0 auto 0.85rem;">
+          <i class="fas fa-search-plus"></i>
+        </div>
+        <h3 class="service-card-title" style="font-family:Arial, sans-serif;font-size:1.05rem;font-weight:700;color:#000000;margin:0;">Diagnóstico de riesgos</h3>
+      </div>
+
+      <div style="background:#FFFFFF;border:1.5px solid #DEDDDD;border-radius:14px;padding:1.75rem 1rem;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.03);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="width:52px;height:52px;background:var(--red);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin:0 auto 0.85rem;">
+          <i class="fas fa-tools"></i>
+        </div>
+        <h3 class="service-card-title" style="font-family:Arial, sans-serif;font-size:1.05rem;font-weight:700;color:#000000;margin:0;">Instalación técnica</h3>
+      </div>
+
+      <div style="background:#FFFFFF;border:1.5px solid #DEDDDD;border-radius:14px;padding:1.75rem 1rem;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.03);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="width:52px;height:52px;background:var(--red);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin:0 auto 0.85rem;">
+          <i class="fas fa-wrench"></i>
+        </div>
+        <h3 class="service-card-title" style="font-family:Arial, sans-serif;font-size:1.05rem;font-weight:700;color:#000000;margin:0;">Mantenimiento</h3>
+      </div>
+
+      <div style="background:#FFFFFF;border:1.5px solid #DEDDDD;border-radius:14px;padding:1.75rem 1rem;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.03);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="width:52px;height:52px;background:var(--red);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin:0 auto 0.85rem;">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3 class="service-card-title" style="font-family:Arial, sans-serif;font-size:1.05rem;font-weight:700;color:#000000;margin:0;">Garantía oficial</h3>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="/servicios.html" class="btn btn-yellow btn-sm" style="font-weight:800;">
+        VER MÁS <i class="fas fa-arrow-right" style="margin-left:4px"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALES & RESEÑAS CON AUTO-SCROLL ────────────── -->
+<section class="testimonials">
+  <div class="container">
+    <h2 class="section-title">Confían en PRO CAM Seguridad</h2>
+    <div class="section-underline"></div>
+
+    <div class="testimonials-track-wrapper" id="testimonialsTrack">
+      <div class="testimonial-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span class="testimonial-type-badge badge-hogar"><i class="fas fa-home"></i> Cliente Hogar</span>
+          <div class="stars"><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i></div>
+        </div>
+        <p class="testimonial-text">"El cotizador nos facilitó armar el proyecto para la casa. Luego vino el técnico, revisó la ubicación de las cámaras y la instalación fue impecable."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><i class="fas fa-user-check"></i></div>
+          <div>
+            <div class="testimonial-name">Martín García</div>
+            <div class="testimonial-role">Propietario Residencial — Quilmes</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span class="testimonial-type-badge badge-pyme"><i class="fas fa-store"></i> Cliente PyME</span>
+          <div class="stars"><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i></div>
+        </div>
+        <p class="testimonial-text">"Integramos el control de acceso biométrico con las cámaras AcuSense en nuestro centro de distribución. Redujimos falsas alarmas y mejoramos el control de ingresos."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><i class="fas fa-user-check"></i></div>
+          <div>
+            <div class="testimonial-name">Carlos Medina</div>
+            <div class="testimonial-role">Gerente Operativo — PyME Logística, Avellaneda</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span class="testimonial-type-badge badge-empresa"><i class="fas fa-building"></i> Empresa</span>
+          <div class="stars"><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i><i class="fas fa-star" style="color:#FFB300;"></i></div>
+        </div>
+        <p class="testimonial-text">"Excelente respuesta ante urgencias y un soporte técnico que realmente atiende el teléfono. Recomendamos a PRO CAM para comercios e industrias."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><i class="fas fa-user-check"></i></div>
+          <div>
+            <div class="testimonial-name">Laura Fernández</div>
+            <div class="testimonial-role">Directora de Planta — Bella Vista (Zona Oeste)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ¿POR QUÉ ELEGIRNOS? ────────────────────────────── -->
+<section>
+  <div class="container">
+    <h2 class="section-title">¿Por Qué Elegir PRO CAM?</h2>
+    <div class="section-underline"></div>
+
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fas fa-calculator"></i></div>
+        <div>
+          <h4>Cotización a Medida</h4>
+          <p>Presupuestos claros y adaptados a las dimensiones reales de tu propiedad.</p>
+        </div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fas fa-user-shield"></i></div>
+        <div>
+          <h4>Técnicos Certificados</h4>
+          <p>Instalaciones prolijas y configuraciones de red de alta seguridad.</p>
+        </div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fas fa-headset"></i></div>
+        <div>
+          <h4>Atención & Soporte</h4>
+          <p>Canal de atención directo para resolver dudas técnicas y mantenimientos.</p>
+        </div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fas fa-award"></i></div>
+        <div>
+          <h4>Equipamiento Homologado</h4>
+          <p>Tecnología internacional de primera línea para máxima fiabilidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARCAS ─────────────────────────────────────────── -->
+<section class="brands" style="background:#FAFAFA;padding:2.5rem 0;border-top:1px solid #EEEEEE;border-bottom:1px solid #EEEEEE;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:1.25rem;">
+      <span style="font-size:0.78rem;font-weight:800;color:var(--gray-text);text-transform:uppercase;letter-spacing:1.5px;">Tecnología Homologada e Integrada</span>
+    </div>
+    <div class="brands-row" style="display:flex;justify-content:center;align-items:center;gap:3.5rem;flex-wrap:wrap;">
+      <!-- Hikvision Logo Oficial hik.jpg -->
+      <img src="/images/hik.jpg" alt="Hikvision" style="height:42px;max-width:190px;width:auto;object-fit:contain;">
+      <!-- ZKTeco Logo Oficial zk.jpg -->
+      <img src="/images/zk.jpg" alt="ZKTeco" style="height:38px;max-width:190px;width:auto;object-fit:contain;">
+      <!-- Pryde Logo Oficial pryde.jpg -->
+      <img src="/images/pryde.jpg" alt="Pryde" style="height:40px;max-width:190px;width:auto;object-fit:contain;">
+    </div>
+  </div>
+</section>
+
+<!-- Footer (inyectado por app.js) -->
+
+<script type="module">
+  import { buildHeader, buildFooter } from '/js/app.js';
+  buildHeader('home');
+  buildFooter();
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
